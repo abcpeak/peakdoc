@@ -27,3 +27,11 @@ win11系统中右下角，右键小狼毫图标选择“输入法设定”，点
 ### 二、候选词个数和更改候选词框为横向
 
 #### **小狼毫初始的候选词个数只有5个，允许范围是 1-9 个候选**
+
+
+
+
+## 相关资源
+小狼毫输入法：<https://github.com/rime/weasel>
+同文输入法：<https://github.com/osfans/trime>
+简繁转换opencc：<https://github.com/BYVoid/OpenCC>
