@@ -15,7 +15,70 @@ parent: skill
 
 ---
 
-## Spacing
+
+
+### 一、皮肤选择
+win11系统中右下角，右键小狼毫图标选择“输入法设定”，点击“中”，然后就可以选择皮肤了。
+
+### 二、候选词个数和更改候选词框为横向
+
+#### **小狼毫初始的候选词个数只有5个，允许范围是 1-9 个候选**
+win11系统中右下角，右键小狼毫图标选择“用户文件夹”，打开Rime的用户文件夹（在 用户目录AppDataRoamingRime下），找到“default.custom.yaml”文件，如果没有就新建一个，在后面加上这几行
+patch:
+"menu/page_size": 7
+注意：如果原内容已有patch:不可重复patch:这一行。
+
+#### **候选框是竖向的改成横向的，用户文件夹找到“weasel.custom.yaml”文件，在后面加上这些**
+patch:
+"style/horizontal": true
+
+### 三、导入搜狗词库
+很多词打不出来比较难受，所以我决定导入搜狗词库。
+
+#### **方法1:直接下载词库：**
+点击下载搜狗标准词库转化后的版本：[luna_pinyin.sogou.dict.yaml](https://note.youdao.com/yws/api/personal/file/WEBd5257ae39e75ae22a880361ff11110e6?method=download&shareKey=5a50b27e09e0a205aef4abbf7731d25e)
+
+#### **方法2:自己动手下载词库转换词库：**
+首先去搜狗官网下载[搜狗标准词库](https://pinyin.sogou.com/dict/detail/index/11640)，这个时候是.scel文件，然后用[深蓝词库转换工具](https://note.youdao.com/yws/api/personal/file/WEB88925041ceb5b7da7e6b0da8deedfe10?method=download&shareKey=13c1e229923310cc2f5acc5163371b3f)将文件转换为Rime词库适用的txt格式。 然后将转换后的txt文件最前面加上以下内容，并将其重命名为”luna_pinyin.sogou.dict.yaml“
+# Rime dictionary
+# encoding: utf-8
+
+---
+name: luna_pinyin.sogou
+version: "2015.12.24"
+sort: by_weight
+use_preset_vocabulary: true
+import_tables:
+- luna_pinyin
+...
+配置过程 将这个”luna_pinyin.sogou.dict.yaml“文件移动到Rime的用户文件夹。
+然后在用户文件夹新建”luna_pinyin_simp.custom.yaml“文件，在里面输入这些
+patch:
+translator/dictionary: luna_pinyin.sogou
+
+### 四、快捷输出当前日期/时间
+目前最新的版本已经自带了这个函数，只需要改下配置就可以使用。
+
+#### 在用户文件夹——bulid文件夹下找到 luna_pinyin.schema.yaml （如果是要在朙月拼音输入法下打日期就选择这个luna，其他输入法类推）
+在engine - translators （在第40行）下面加入
+- lua_translator@time_translator
+
+#### 在用户文件夹下新建一个文件，添加如下内容后，改名为rime.lua
+function time_translator(input, seg, env)
+if (input == "rq") then
+local cand = Candidate("date", seg.start, seg._end, os.date("%Y-%m-%d"), "")
+cand.quality = 1
+yield(cand)
+end
+if (input == "sj") then
+local cand = Candidate("time", seg.start, seg._end, os.date("%H:%M"), " ")
+cand.quality = 1
+yield(cand)
+end
+end
+
+
+### 四、快捷输出当前日期/时间
 
 [官方的定制指南](https://github.com/rime/home/wiki/CustomizationGuid/)
 [RIME中州韵输入法引擎](https://rime.im/download/)官网下载输入法
@@ -54,67 +117,7 @@ parent: skill
 | stroke | 五笔画 | 
 | terra_pinyin | 地球拼音 | 
 
-### **一、皮肤选择**
-win11系统中右下角，右键小狼毫图标选择“输入法设定”，点击“中”，然后就可以选择皮肤了。
-
-### **二、候选词个数和更改候选词框为横向**
-
-#### **小狼毫初始的候选词个数只有5个，允许范围是 1-9 个候选**
-win11系统中右下角，右键小狼毫图标选择“用户文件夹”，打开Rime的用户文件夹（在 用户目录AppDataRoamingRime下），找到“default.custom.yaml”文件，如果没有就新建一个，在后面加上这几行
-patch:
-"menu/page_size": 7
-注意：如果原内容已有patch:不可重复patch:这一行。
-
-#### **候选框是竖向的改成横向的，用户文件夹找到“weasel.custom.yaml”文件，在后面加上这些**
-patch:
-"style/horizontal": true
-
-### **三、导入搜狗词库**
-很多词打不出来比较难受，所以我决定导入搜狗词库。
-
-#### **方法1:直接下载词库：**
-点击下载搜狗标准词库转化后的版本：[luna_pinyin.sogou.dict.yaml](https://note.youdao.com/yws/api/personal/file/WEBd5257ae39e75ae22a880361ff11110e6?method=download&shareKey=5a50b27e09e0a205aef4abbf7731d25e)
-
-#### **方法2:自己动手下载词库转换词库：**
-首先去搜狗官网下载[搜狗标准词库](https://pinyin.sogou.com/dict/detail/index/11640)，这个时候是.scel文件，然后用[深蓝词库转换工具](https://note.youdao.com/yws/api/personal/file/WEB88925041ceb5b7da7e6b0da8deedfe10?method=download&shareKey=13c1e229923310cc2f5acc5163371b3f)将文件转换为Rime词库适用的txt格式。 然后将转换后的txt文件最前面加上以下内容，并将其重命名为”luna_pinyin.sogou.dict.yaml“
-# Rime dictionary
-# encoding: utf-8
-
----
-name: luna_pinyin.sogou
-version: "2015.12.24"
-sort: by_weight
-use_preset_vocabulary: true
-import_tables:
-- luna_pinyin
-...
-配置过程 将这个”luna_pinyin.sogou.dict.yaml“文件移动到Rime的用户文件夹。
-然后在用户文件夹新建”luna_pinyin_simp.custom.yaml“文件，在里面输入这些
-patch:
-translator/dictionary: luna_pinyin.sogou
-
-### **四、快捷输出当前日期/时间**
-目前最新的版本已经自带了这个函数，只需要改下配置就可以使用。
-
-#### **在用户文件夹——bulid文件夹下找到 luna_pinyin.schema.yaml （如果是要在朙月拼音输入法下打日期就选择这个luna，其他输入法类推）**
-在engine - translators （在第40行）下面加入
-- lua_translator@time_translator
-
-#### **在用户文件夹下新建一个文件，添加如下内容后，改名为rime.lua**
-function time_translator(input, seg, env)
-if (input == "rq") then
-local cand = Candidate("date", seg.start, seg._end, os.date("%Y-%m-%d"), "")
-cand.quality = 1
-yield(cand)
-end
-if (input == "sj") then
-local cand = Candidate("time", seg.start, seg._end, os.date("%H:%M"), " ")
-cand.quality = 1
-yield(cand)
-end
-end
-
-### **五、模糊音定制**
+### 五、模糊音定制
 在用户文件夹下新建一个文件，添加如下内容后，改名为luna_pinyin.custom.yaml
 # luna_pinyin.custom.yaml
 #
@@ -188,38 +191,38 @@ patch:
 #- derive/^([nl])ei$/$1ui/          # nei => nui, lei => lui
 #- derive/^([nlzcs])un$/$1vn/       # lun => lvn, zun => zvn, ...
 #- derive/^([nlzcs])ong$/$1iong/    # long => liong, song => siong, ...
-# 这个办法虽从拼写上做出了区分，然而受词典制约，候选字仍是混的。
-# 只有真正的方音输入方案纔能做到！但“反模糊音”这个玩法快速而有效！
+这个办法虽从拼写上做出了区分，然而受词典制约，候选字仍是混的。
+只有真正的方音输入方案纔能做到！但“反模糊音”这个玩法快速而有效！
 
-# 模糊音定义先于简拼定义，方可令简拼支持以上模糊音
+模糊音定义先于简拼定义，方可令简拼支持以上模糊音
 - abbrev/^([a-z]).+$/$1/           # 简拼（首字母）
 - abbrev/^([zcs]h).+$/$1/          # 简拼（zh, ch, sh）
 
-# 以下是一组容错拼写，《汉语拼音》方案以前者爲正
+以下是一组容错拼写，《汉语拼音》方案以前者爲正
 - derive/^([nl])ve$/$1ue/          # nve = nue, lve = lue
 - derive/^([jqxy])u/$1v/           # ju = jv,
 - derive/un$/uen/                  # gun = guen,
 - derive/ui$/uei/                  # gui = guei,
 - derive/iu$/iou/                  # jiu = jiou,
 
-# 自动纠正一些常见的按键错误
+自动纠正一些常见的按键错误
 - derive/([aeiou])ng$/$1gn/        # dagn => dang
 - derive/([dtngkhrzcs])o(u|ng)$/$1o/  # zho => zhong|zhou
 - derive/ong$/on/                  # zhonguo => zhong guo
 - derive/ao$/oa/                   # hoa => hao
 - derive/([iu])a(o|ng?)$/a$1$2/    # tain => tian
 
-# 分尖团后 v => ü 的改写条件也要相应地扩充：
+分尖团后 v => ü 的改写条件也要相应地扩充：
 #'translator/preedit_format':
 #  - "xform/([nljqxyzcs])v/$1ü/"
 
-### **六、在Win11将Rime（小狼毫Weasel）设为默认输入法？**
+### 六、在Win11将Rime（小狼毫Weasel）设为默认输入法？
 Win11系统的设置time&language——language&region——options，Keyboards添加小狼毫 然后advanced keyboard设置修改默认输入法即可
 
-### **七、RIME个人词库配置同步（针对文件installation.yaml，文件夹sync）**
+### 七、RIME个人词库配置同步（针对文件installation.yaml，文件夹sync）
 RIME本身不可以实现云同步，但我们可以借助第三方云盘实现此功能。 第一步打开用户文件夹中的installation.yaml文件，修改sync_dir指向位置（这个位置将是RIME的词典与配置存储的地方） 另外也可修改installation_id为自己喜欢的名称（为字母下划线数字，也可以不修改） 第二部做好上述修改后，点击用户同步。右击即可实现设置。
 
-### **八、拼音和英文混输**
+### 八、拼音和英文混输
 [融合拼音rime_melt](https://github.com/tumuyan/rime-melt)是一个拼音-英文混合输入的Rime输入法的输入方案，基于【袖珍简化字拼音】【Easy English】
 [Rime Easy English 英文输入法](https://github.com/BlindingDark/rime-easy-en)
 **最后在windows任务栏小狼毫的图标上右键选择”重新布署“，就可以使用小狼毫Weasel了。**
