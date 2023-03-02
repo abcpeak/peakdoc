@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Configuration
+title: wonderful
 nav_order: 3
 ---
 
