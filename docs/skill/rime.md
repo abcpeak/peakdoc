@@ -4,7 +4,7 @@ title: rime
 parent: skill
 ---
 
-# Layout Utilities
+# rime/weasel/小狼毫 输入法
 {: .no_toc }
 
 ## Table of contents
@@ -15,10 +15,16 @@ parent: skill
 
 ---
 
-## rime/weasel/小狼毫 输入法
-> [Rime](https://github.com/rime) 输入法是一款适用于多平台（Mac OSX, Linux, Windows）的开源输入法
+## 什么是rime/weasel/小狼毫
+> [Rime](https://github.com/rime)是一款适用于多平台（Mac OSX, Linux, Windows）的开源输入法
 
-
+Rime在不同平台下的对应名称：
+* Mac OSX: 鼠鬚管 ([Squirrel](https://github.com/rime/squirrel))
+    配置目录：`~/Library/Rime/`
+* Linux: 中州韻 (ibus-rime)
+    配置目录：`~/.config/ibus/rime/`
+* Windows: 小狼毫 (Weasel)
+    配置目录：`%APPDATA%\Rime`
 
 ## 相关资源
 
@@ -33,16 +39,6 @@ parent: skill
 - [Rime 定製指南](https://github.com/rime/home/wiki/CustomizationGuide)
 - [說明書#同步用戶資料](https://github.com/rime/home/wiki/UserGuide#同步用戶資料)
 
-
-
-
-## Rime在不同平台下的对应名称：
-* Mac OSX: 鼠鬚管 ([Squirrel](https://github.com/rime/squirrel))
-    配置目录：`~/Library/Rime/`
-* Linux: 中州韻 (ibus-rime)
-    配置目录：`~/.config/ibus/rime/`
-* Windows: 小狼毫 (Weasel)
-    配置目录：`%APPDATA%\Rime`
 
 ## 输入法配置说明
 
