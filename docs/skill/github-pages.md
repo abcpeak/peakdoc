@@ -351,9 +351,10 @@ Filter 可以连续执行：xxx | append: "str1" | append: "str2"
 
 ~~~
 方式一: site.categories.linux即是分类为 linux 的 posts 列表 方式二: for cate in site.categories，cate[0]是 linux，cate[1]是 posts 列表
+*注意：如果{% %}里面的是语句，一行只能有一个而不能有多个*
 ~~~
 
-*注意：如果{% %}里面的是语句，一行只能有一个而不能有多个*
+
 
 
 #### Bundler详解
