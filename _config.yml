@@ -1,8 +1,8 @@
-title: 思维导图
+title: Just the Docs Template
 description: A starter template for a Jeykll site using the Just the Docs theme!
 theme: just-the-docs
 
-url: 
+url: https://just-the-docs.github.io
 
 aux_links:
-  Twitter: https://twitter.com/
+  Template Repository: https://github.com/just-the-docs/just-the-docs-template
