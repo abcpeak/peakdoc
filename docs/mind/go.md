@@ -16,6 +16,3 @@ Just the Docs spacing works in conjunction with a variety of modifiers that allo
 | `md`      | 740px (46.25rem) and up              |
 | `lg`      | 1120px (70rem) and up                |
 | `xl`      | 1400px (87.5rem) and up              |
-
-
-呃呃呃都是的②有人偷而他也二
