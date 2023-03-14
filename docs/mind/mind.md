@@ -11,3 +11,6 @@ permalink: docs/mind
 
 mind
 {: .fs-6 .fw-300 }
+
+阿萨
+阿萨a是
